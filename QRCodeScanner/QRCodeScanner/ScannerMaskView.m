@@ -40,7 +40,7 @@
 
 @implementation ScannerBorder{
     
-    UIImageView *_borderImageView;
+    UIImageView *_line;
 }
 
 
@@ -58,7 +58,53 @@
     
     
     self.clipsToBounds = YES;
-    _borderImageView = [UIImageView alloc]initWithImage:[UIImage imageNamed:<#(nonnull NSString *)#>]
+    _line = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"scanLine"]];
+    _line.frame = CGRectMake(0, 0, self.bounds.size.width, _line.bounds.size.height);
+    _line.center = CGPointMake(self.bounds.size.width * 0.5, 0);
+    [self addSubview:_line];
+    
+    //设置边角图像
+    for (int i = 1; i < 5; i++) {
+        
+        UIImageView *border = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"scan%d", i]]];
+        [self addSubview:border];
+        CGFloat marginW = self.bounds.size.width - border.bounds.size.width;
+        CGFloat marginH = self.bounds.size.height - border.bounds.size.height;
+        
+        switch (i) {
+            case 2:
+                border.frame = CGRectOffset(border.frame, marginW, 0);
+                break;
+            case 3:
+                border.frame = CGRectOffset(border.frame, 0, marginH);
+                break;
+            case 4:
+                border.frame = CGRectOffset(border.frame, marginW, marginH);
+                break;
+            default:
+                break;
+        }
+
+    }
+}
+
+#pragma mark - 开始扫描
+- (void)beginScanAnimation{
+    
+    [self endScanAnimation];
+    [UIView animateWithDuration:3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [UIView setAnimationRepeatCount:MAXFLOAT];
+        _line.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height);
+    } completion:nil];
+    
+}
+
+#pragma mark - 结束扫描
+- (void)endScanAnimation{
+    
+    [self.layer removeAllAnimations];
+    _line.center = CGPointMake(self.bounds.size.width * 0.5, 0);
 }
 
 @end
