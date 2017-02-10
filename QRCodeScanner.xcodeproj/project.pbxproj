@@ -17,6 +17,7 @@
 		5D8BE2161E4C32A3005FC34B /* QRCodeScannerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE2151E4C32A3005FC34B /* QRCodeScannerUITests.m */; };
 		5D8BE2261E4C335E005FC34B /* QRCodeScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE2251E4C335E005FC34B /* QRCodeScannerController.m */; };
 		5D8BE2291E4C533F005FC34B /* Scanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE2281E4C533F005FC34B /* Scanner.m */; };
+		5D9643CF1E4D911500A1197E /* ScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D9643CE1E4D911500A1197E /* ScannerMaskView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		5D8BE2251E4C335E005FC34B /* QRCodeScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeScannerController.m; sourceTree = "<group>"; };
 		5D8BE2271E4C533F005FC34B /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
 		5D8BE2281E4C533F005FC34B /* Scanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scanner.m; sourceTree = "<group>"; };
+		5D9643CD1E4D911500A1197E /* ScannerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerMaskView.h; sourceTree = "<group>"; };
+		5D9643CE1E4D911500A1197E /* ScannerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerMaskView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +157,8 @@
 				5D8BE2251E4C335E005FC34B /* QRCodeScannerController.m */,
 				5D8BE2271E4C533F005FC34B /* Scanner.h */,
 				5D8BE2281E4C533F005FC34B /* Scanner.m */,
+				5D9643CD1E4D911500A1197E /* ScannerMaskView.h */,
+				5D9643CE1E4D911500A1197E /* ScannerMaskView.m */,
 			);
 			path = QRCodeScanner;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				5D8BE2291E4C533F005FC34B /* Scanner.m in Sources */,
 				5D8BE2261E4C335E005FC34B /* QRCodeScannerController.m in Sources */,
 				5D8BE1F81E4C32A3005FC34B /* ViewController.m in Sources */,
+				5D9643CF1E4D911500A1197E /* ScannerMaskView.m in Sources */,
 				5D8BE1F51E4C32A3005FC34B /* AppDelegate.m in Sources */,
 				5D8BE1F21E4C32A3005FC34B /* main.m in Sources */,
 			);
@@ -528,6 +534,7 @@
 				5D8BE21C1E4C32A3005FC34B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D8BE21D1E4C32A3005FC34B /* Build configuration list for PBXNativeTarget "QRCodeScannerTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +543,7 @@
 				5D8BE21F1E4C32A3005FC34B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5D8BE2201E4C32A3005FC34B /* Build configuration list for PBXNativeTarget "QRCodeScannerUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +552,7 @@
 				5D8BE2221E4C32A3005FC34B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

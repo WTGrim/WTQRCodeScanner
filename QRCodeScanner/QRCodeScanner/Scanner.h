@@ -12,7 +12,7 @@
 @interface Scanner : NSObject
 
 //指定scanner在哪个视图上
-+ (instancetype)scannerWithView:(UIView *)view scannerFrame:(CGRect)scannerFrame completed:(void(^)(NSString *))completed;
++ (instancetype)scannerWithPrarentView:(UIView *)view scannerFrame:(CGRect)scannerFrame completed:(void(^)(NSString *))completed;
 
 //扫描二维码图像
 + (void)scanImage:(UIImage *)image completed:(void(^)(NSArray *))completed;
@@ -24,9 +24,9 @@
 + (void)generateQrcodeImage:(NSString *)cardName centerImage:(UIImage *)centerImage scale:(CGFloat)scale completed:(void (^)(UIImage *))completed;
 
 //开始扫描
-+ (void)beginScan;
+- (void)beginScan;
 
 //结束扫描
-+ (void)endScan;
+- (void)endScan;
 
 @end

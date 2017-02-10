@@ -9,7 +9,8 @@
 #import "Scanner.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface Scanner ()
+#define kMaxDetectCount 20
+@interface Scanner ()<AVCaptureMetadataOutputObjectsDelegate>
 
 @property(nonatomic, weak)UIView *parentView;
 @property(nonatomic, assign)CGRect scanFrame;
@@ -22,9 +23,72 @@
     AVCaptureSession *_session;
     AVCaptureVideoPreviewLayer *_previewLayer;//预览图层
     CALayer *_drawLayer;//绘制图层
-    NSInteger *_currentCount;
+    NSInteger _currentCount;
 }
 
+
++ (instancetype)scannerWithPrarentView:(UIView *)view scannerFrame:(CGRect)scannerFrame completed:(void (^)(NSString *))completed{
+    
+    return [[self alloc]initWithView:view scannerFrame:scannerFrame completed:completed];
+}
+
+- (instancetype)initWithView:(UIView *)view scannerFrame:(CGRect)scannerFrame completed:(void (^)(NSString *))completed{
+    
+    if (self = [super init]) {
+        self.parentView = view;
+        self.scanFrame = scannerFrame;
+        self.competed = completed;
+        
+        [self initSession];
+    }
+    return self;
+}
+
+- (void)initSession{
+    
+    //设置输入设备
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+    
+    if (!input) {
+        return;
+    }
+    
+    //输出
+    AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc]init];
+    
+    //设置会话
+    _session = [[AVCaptureSession alloc]init];
+    if (![_session canAddInput:input] || ![_session canAddOutput:output]) {
+        return;
+    }
+    [_session addInput:input];
+    [_session addOutput:output];
+    
+    output.metadataObjectTypes = output.availableMetadataObjectTypes;
+    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    
+    //设置预览层和绘制图层
+    [self initLayers];
+}
+
+- (void)initLayers{
+    
+    if (!self.parentView || !_session) {
+        return;
+    }
+    
+    _drawLayer = [[CALayer alloc]init];
+    _drawLayer.frame = self.parentView.frame;
+    [self.parentView.layer insertSublayer:_drawLayer atIndex:0];
+    
+    //预览图层
+    _previewLayer = [[AVCaptureVideoPreviewLayer alloc]init];
+    _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    _previewLayer.frame = self.parentView.bounds;
+    [self.parentView.layer insertSublayer:_previewLayer atIndex:0];
+    
+}
 #pragma mark - 生成二维码
 + (void)generateQrcodeImage:(NSString *)cardName centerImage:(UIImage *)centerImage completed:(void (^)(UIImage *))completed{
     
@@ -79,10 +143,108 @@
 #pragma mark - 扫描图像
 + (void)scanImage:(UIImage *)image completed:(void (^)(NSArray *))completed{
     
+    NSAssert(!completed, @"回调不能为空");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-       
+        
+        CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+        CIImage *ciImage = [[CIImage alloc]initWithImage:image];
+        //返回通过置信系数过滤的特征
+        NSArray *features = [detector featuresInImage:ciImage];
+        
+        NSMutableArray *array = [NSMutableArray array];
+        for (CIQRCodeFeature *feature in features) {
+            
+            [array addObject:feature.messageString];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completed(array.copy);
+        });
         
     });
 }
+
+#pragma mark - 开始/结束扫描
+- (void)beginScan{
+    
+    if ([_session isRunning]) return;
+    _currentCount = 0;
+    [_session startRunning];
+}
+
+- (void)endScan{
+    
+    if (![_session isRunning]) return;
+    [_session stopRunning];
+}
+
+#pragma mark - 清理图层
+- (void)clearLayers{
+    
+    if (_drawLayer.sublayers.count == 0) return;
+    [_drawLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+}
+
+#pragma mark - AVCaptureMetadataOutputObjectsDelegate
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+    
+    [self clearLayers];
+    for (id obj in metadataObjects) {
+        
+        if (![obj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) return;
+        
+        //转换对象坐标
+        AVMetadataMachineReadableCodeObject *readableObject = (AVMetadataMachineReadableCodeObject *)[_previewLayer transformedMetadataObjectForMetadataObject:obj];
+        if (!CGRectContainsRect(self.scanFrame, readableObject.bounds)) {
+            continue;
+        }
+        
+        if (_currentCount++ < kMaxDetectCount) {
+            //绘制
+            [self drawShape:readableObject];
+        }else{
+            
+            [self endScan];
+            //完成
+            if (self.competed) {
+                self.competed(readableObject.stringValue);
+            }
+        }
+    }
+}
+
+#pragma mark - 绘制图形
+- (void)drawShape:(AVMetadataMachineReadableCodeObject *)obj{
+    
+    if (!obj.corners.count) return;
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.lineWidth = 4;
+    shapeLayer.strokeColor = [UIColor greenColor].CGColor;   //边线颜色
+    shapeLayer.fillColor = [UIColor clearColor].CGColor;
+    shapeLayer.path = [self drawPath:obj.corners];
+    [_drawLayer addSublayer:shapeLayer];
+}
+
+#pragma mark - 获取路径
+- (CGPathRef)drawPath:(NSArray *)corners{
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGPoint point = CGPointZero;
+    NSInteger index = 0;
+    
+    //获取第一个点
+    CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)(corners[index++]), &point);
+    [path moveToPoint:point];
+    
+    //遍历
+    while (index < corners.count) {
+        CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)(corners[index++]), &point);
+        [path addLineToPoint:point];
+    }
+    [path closePath];
+    return path.CGPath;
+}
+
+
 
 @end
