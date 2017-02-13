@@ -29,6 +29,8 @@
 
 + (instancetype)scannerWithPrarentView:(UIView *)view scannerFrame:(CGRect)scannerFrame completed:(void (^)(NSString *))completed{
     
+    NSAssert(completed != nil, @"必须传入完成回调");
+
     return [[self alloc]initWithView:view scannerFrame:scannerFrame completed:completed];
 }
 
@@ -62,6 +64,7 @@
     _session = [[AVCaptureSession alloc]init];
     if (![_session canAddInput:input] || ![_session canAddOutput:output]) {
         NSLog(@"添加设备失败");
+        _session = nil;
         return;
     }
     [_session addInput:input];
@@ -81,12 +84,12 @@
         return;
     }
     
-    _drawLayer = [[CALayer alloc]init];
-    _drawLayer.frame = self.parentView.frame;
+    _drawLayer = [CALayer layer];
+    _drawLayer.frame = self.parentView.bounds;
     [self.parentView.layer insertSublayer:_drawLayer atIndex:0];
     
     //预览图层
-    _previewLayer = [[AVCaptureVideoPreviewLayer alloc]init];
+    _previewLayer = [[AVCaptureVideoPreviewLayer alloc]initWithSession:_session];
     _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     _previewLayer.frame = self.parentView.bounds;
     [self.parentView.layer insertSublayer:_previewLayer atIndex:0];
@@ -100,11 +103,14 @@
 
 + (void)generateQrcodeImage:(NSString *)cardName centerImage:(UIImage *)centerImage scale:(CGFloat)scale completed:(void (^)(UIImage *))completed{
     
+    NSAssert(completed != nil, @"回调不能为空");
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
         CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
         [filter setDefaults];
         [filter setValue:[cardName dataUsingEncoding:NSUTF8StringEncoding] forKey:@"inputMessage"];
+        
         CIImage *outputImage = filter.outputImage;
         
         CGAffineTransform transform = CGAffineTransformMakeScale(10, 10);
@@ -112,7 +118,7 @@
         
         CIContext *context = [CIContext contextWithOptions:nil];
         CGImageRef cgImage = [context createCGImage:transformImage fromRect:transformImage.extent];
-        UIImage *qrImage = [UIImage imageWithCGImage:cgImage scale:scale orientation:UIImageOrientationUp];
+        UIImage *qrImage = [UIImage imageWithCGImage:cgImage scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
         CGImageRelease(cgImage);
         
         if (centerImage) {

@@ -95,6 +95,13 @@
     [photoButton setTitle:@"相册" forState:UIControlStateNormal];
     [photoButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [self.view addSubview:photoButton];
+    
+    UIButton *cardButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 50, self.view.bounds.size.height - 30, 40, 30)];
+    [cardButton addTarget:self action:@selector(cardButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [cardButton setTitle:@"相册" forState:UIControlStateNormal];
+    [cardButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [self.view addSubview:cardButton];
+
 }
 
 - (void)initScanBorder{
@@ -138,6 +145,7 @@
     imagePicker.delegate = self;
     [self showDetailViewController:imagePicker sender:nil];
 }
+
 
 #pragma mark - delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
