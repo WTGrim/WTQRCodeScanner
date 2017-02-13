@@ -81,9 +81,20 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     self.title = @"扫一扫";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarClick)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"相册" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarClick)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(leftBarClick)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"相册" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarClick)];
     
+    UIButton *closeButton = [[UIButton alloc]initWithFrame:CGRectMake(10, self.view.bounds.size.height - 30, 40, 30)];
+    [closeButton addTarget:self action:@selector(leftBarClick) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
+    [closeButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
+    
+    UIButton *photoButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 50, self.view.bounds.size.height - 30, 40, 30)];
+    [photoButton addTarget:self action:@selector(rightBarClick) forControlEvents:UIControlEventTouchUpInside];
+    [photoButton setTitle:@"关闭" forState:UIControlStateNormal];
+    [photoButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [self.view addSubview:photoButton];
 }
 
 - (void)initScanBorder{
@@ -94,7 +105,7 @@
     _scanBorder.tintColor = self.navigationController.navigationBar.tintColor;
     [self.view addSubview:_scanBorder];
     
-    ScannerMaskView *maskView = [ScannerMaskView maskViewWithFrame:self.view.bounds clipFrame:_scanBorder.bounds];
+    ScannerMaskView *maskView = [ScannerMaskView maskViewWithFrame:self.view.bounds clipFrame:_scanBorder.frame];
     [self.view insertSubview:maskView atIndex:0];
     
 }
@@ -105,9 +116,9 @@
     _tipsLabel.font = [UIFont systemFontOfSize:12];
     _tipsLabel.text = @"将二维码/条形码放入框中，即可自动扫描";
     _tipsLabel.textColor = [UIColor whiteColor];
+    [_tipsLabel sizeToFit];
     _tipsLabel.center = CGPointMake(_scanBorder.center.x, CGRectGetMaxY(_scanBorder.frame) + 60);
     [_tipsLabel setTextAlignment:NSTextAlignmentCenter];
-    [_tipsLabel sizeToFit];
     [self.view addSubview:_tipsLabel];
     
 }
