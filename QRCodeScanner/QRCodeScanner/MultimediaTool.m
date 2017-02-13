@@ -16,7 +16,7 @@
 + (void)openLight:(BOOL)Open{
     
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-//    if (![device hasTorch]) return;
+    if (![device hasTorch]) return;
     if (Open) {
         if (device.torchMode != AVCaptureTorchModeOn ||device.flashMode != AVCaptureFlashModeOn) {
             
@@ -52,8 +52,15 @@
 + (void)showDetailMessageInSafari:(NSString *)message succeed:(void (^)(NSString *))succeed failed:(void (^)(NSError *))failed{
     NSString *newURl = [[self new] judgeSpecialURL:message];
     NSURL *url = [NSURL URLWithString:newURl];
-    //由于对于qq、weixin、weibo等用下面方法判断是否能打开，总是返回NO，所以就分开写了
+    UIApplication *app = [UIApplication sharedApplication];
+    
     if ([newURl isEqualToString:message]) {
+        
+        //对IOS10进行适配
+        if ([app respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+            [app openURL:url options:@{} completionHandler:nil];
+        }
+        
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
             succeed(@"成功跳转");
             [[UIApplication sharedApplication] openURL:url];
