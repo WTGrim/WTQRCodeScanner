@@ -31,8 +31,8 @@
     CGContextFillRect(context, rect);
     CGContextClearRect(context, self.clipFrame);
     
-    [[UIColor colorWithWhite:0.8 alpha:1] setStroke];
-    CGContextStrokeRectWithWidth(context, CGRectInset(self.clipFrame, 1, 1), 1); //内边距
+    [[UIColor colorWithWhite:0.95 alpha:1] setStroke];
+    CGContextStrokeRectWithWidth(context, CGRectInset(_clipFrame, 1, 1), 1); //内边距
 }
 
 @end

@@ -92,7 +92,7 @@
     
     UIButton *photoButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 50, self.view.bounds.size.height - 30, 40, 30)];
     [photoButton addTarget:self action:@selector(rightBarClick) forControlEvents:UIControlEventTouchUpInside];
-    [photoButton setTitle:@"关闭" forState:UIControlStateNormal];
+    [photoButton setTitle:@"相册" forState:UIControlStateNormal];
     [photoButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [self.view addSubview:photoButton];
 }

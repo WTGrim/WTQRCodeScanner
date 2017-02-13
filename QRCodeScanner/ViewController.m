@@ -33,8 +33,8 @@
     [scanButton addTarget:self action:@selector(onClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:scanButton];
     
-    _resultLabel = [[UILabel alloc]init];
-    [_resultLabel sizeToFit];
+    _resultLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height * 0.5, self.view.bounds.size.width, 20)];
+    _resultLabel.text = @"扫描结果";
     _resultLabel.center = self.view.center;
     _resultLabel.textColor = [UIColor redColor];
     _resultLabel.font = [UIFont systemFontOfSize:16];

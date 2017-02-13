@@ -51,6 +51,7 @@
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     
     if (!input) {
+        NSLog(@"创建输入设备失败");
         return;
     }
     
@@ -60,6 +61,7 @@
     //设置会话
     _session = [[AVCaptureSession alloc]init];
     if (![_session canAddInput:input] || ![_session canAddOutput:output]) {
+        NSLog(@"添加设备失败");
         return;
     }
     [_session addInput:input];
@@ -75,6 +77,7 @@
 - (void)initLayers{
     
     if (!self.parentView || !_session) {
+        NSLog(@"父视图不存在");
         return;
     }
     
@@ -143,7 +146,7 @@
 #pragma mark - 扫描图像
 + (void)scanImage:(UIImage *)image completed:(void (^)(NSArray *))completed{
     
-    NSAssert(!completed, @"回调不能为空");
+    NSAssert(completed != nil, @"回调不能为空");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
         CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
