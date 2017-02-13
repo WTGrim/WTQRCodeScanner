@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D75D3D21E4DA0AE00219293 /* QRCodeScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D3D11E4DA0AE00219293 /* QRCodeScannerController.m */; };
 		5D75D3D51E4DA0F200219293 /* QRCodeScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D3D41E4DA0F200219293 /* QRCodeScannerViewController.m */; };
 		5D8BE1F21E4C32A3005FC34B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE1F11E4C32A3005FC34B /* main.m */; };
 		5D8BE1F51E4C32A3005FC34B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE1F41E4C32A3005FC34B /* AppDelegate.m */; };
@@ -39,8 +38,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5D75D3D01E4DA0AE00219293 /* QRCodeScannerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeScannerController.h; sourceTree = "<group>"; };
-		5D75D3D11E4DA0AE00219293 /* QRCodeScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeScannerController.m; sourceTree = "<group>"; };
 		5D75D3D31E4DA0F200219293 /* QRCodeScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeScannerViewController.h; sourceTree = "<group>"; };
 		5D75D3D41E4DA0F200219293 /* QRCodeScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeScannerViewController.m; sourceTree = "<group>"; };
 		5D8BE1ED1E4C32A3005FC34B /* QRCodeScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,8 +117,6 @@
 				5D8BE1F71E4C32A3005FC34B /* ViewController.m */,
 				5D75D3D31E4DA0F200219293 /* QRCodeScannerViewController.h */,
 				5D75D3D41E4DA0F200219293 /* QRCodeScannerViewController.m */,
-				5D75D3D01E4DA0AE00219293 /* QRCodeScannerController.h */,
-				5D75D3D11E4DA0AE00219293 /* QRCodeScannerController.m */,
 				5D8BE1F91E4C32A3005FC34B /* Main.storyboard */,
 				5D8BE1FC1E4C32A3005FC34B /* Assets.xcassets */,
 				5D8BE1FE1E4C32A3005FC34B /* LaunchScreen.storyboard */,
@@ -305,7 +300,6 @@
 				5D8BE2291E4C533F005FC34B /* Scanner.m in Sources */,
 				5D8BE1F81E4C32A3005FC34B /* ViewController.m in Sources */,
 				5D75D3D51E4DA0F200219293 /* QRCodeScannerViewController.m in Sources */,
-				5D75D3D21E4DA0AE00219293 /* QRCodeScannerController.m in Sources */,
 				5D9643CF1E4D911500A1197E /* ScannerMaskView.m in Sources */,
 				5D8BE1F51E4C32A3005FC34B /* AppDelegate.m in Sources */,
 				5D8BE1F21E4C32A3005FC34B /* main.m in Sources */,
