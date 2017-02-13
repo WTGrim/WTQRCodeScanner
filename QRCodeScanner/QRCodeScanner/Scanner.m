@@ -8,6 +8,7 @@
 
 #import "Scanner.h"
 #import <AVFoundation/AVFoundation.h>
+#import "MultimediaTool.h"
 
 #define kMaxDetectCount 20
 @interface Scanner ()<AVCaptureMetadataOutputObjectsDelegate>
@@ -214,10 +215,18 @@
         }else{
             
             [self endScan];
+            
+            //扫描完成
+            [MultimediaTool openSound:YES shake:NO];
             //完成
             if (self.competed) {
                 self.competed(readableObject.stringValue);
             }
+            [MultimediaTool showDetailMessageInSafari:readableObject.stringValue succeed:^(NSString *result) {
+                NSLog(@"成功");
+            } failed:^(NSError *error) {
+                
+            }];
         }
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D38379E1E517C65006D3F73 /* MultimediaTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D38379D1E517C65006D3F73 /* MultimediaTool.m */; };
+		5D3837A01E5186FB006D3F73 /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5D38379F1E5186FB006D3F73 /* sound.mp3 */; };
 		5D75D3D51E4DA0F200219293 /* QRCodeScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D3D41E4DA0F200219293 /* QRCodeScannerViewController.m */; };
 		5D8BE1F21E4C32A3005FC34B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE1F11E4C32A3005FC34B /* main.m */; };
 		5D8BE1F51E4C32A3005FC34B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BE1F41E4C32A3005FC34B /* AppDelegate.m */; };
@@ -38,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D38379C1E517C65006D3F73 /* MultimediaTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultimediaTool.h; sourceTree = "<group>"; };
+		5D38379D1E517C65006D3F73 /* MultimediaTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultimediaTool.m; sourceTree = "<group>"; };
+		5D38379F1E5186FB006D3F73 /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
 		5D75D3D31E4DA0F200219293 /* QRCodeScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeScannerViewController.h; sourceTree = "<group>"; };
 		5D75D3D41E4DA0F200219293 /* QRCodeScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeScannerViewController.m; sourceTree = "<group>"; };
 		5D8BE1ED1E4C32A3005FC34B /* QRCodeScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,10 +160,13 @@
 		5D8BE2231E4C3329005FC34B /* QRCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
+				5D38379F1E5186FB006D3F73 /* sound.mp3 */,
 				5D8BE2271E4C533F005FC34B /* Scanner.h */,
 				5D8BE2281E4C533F005FC34B /* Scanner.m */,
 				5D9643CD1E4D911500A1197E /* ScannerMaskView.h */,
 				5D9643CE1E4D911500A1197E /* ScannerMaskView.m */,
+				5D38379C1E517C65006D3F73 /* MultimediaTool.h */,
+				5D38379D1E517C65006D3F73 /* MultimediaTool.m */,
 			);
 			path = QRCodeScanner;
 			sourceTree = "<group>";
@@ -270,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D3837A01E5186FB006D3F73 /* sound.mp3 in Resources */,
 				5D8BE2001E4C32A3005FC34B /* LaunchScreen.storyboard in Resources */,
 				5D8BE1FD1E4C32A3005FC34B /* Assets.xcassets in Resources */,
 				5D8BE1FB1E4C32A3005FC34B /* Main.storyboard in Resources */,
@@ -297,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D38379E1E517C65006D3F73 /* MultimediaTool.m in Sources */,
 				5D8BE2291E4C533F005FC34B /* Scanner.m in Sources */,
 				5D8BE1F81E4C32A3005FC34B /* ViewController.m in Sources */,
 				5D75D3D51E4DA0F200219293 /* QRCodeScannerViewController.m in Sources */,
@@ -451,6 +461,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 624TUL8XMA;
 				INFOPLIST_FILE = QRCodeScanner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Dwt.QRCodeScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -463,6 +474,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 624TUL8XMA;
 				INFOPLIST_FILE = QRCodeScanner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Dwt.QRCodeScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";

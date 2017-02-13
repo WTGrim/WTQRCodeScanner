@@ -45,7 +45,7 @@
     [self.view addSubview:_resultLabel];
     
     
-    UIButton *cardButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width * 0.5 - 40, self.view.bounds.size.height - 30, 80, 30)];
+    UIButton *cardButton = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bounds.size.width - 40) * 0.5 , self.view.bounds.size.height - 30, 80, 30)];
     [cardButton addTarget:self action:@selector(cardButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [cardButton setTitle:@"生成二维码" forState:UIControlStateNormal];
     cardButton.titleLabel.font = [UIFont systemFontOfSize:13];

@@ -9,6 +9,7 @@
 #import "QRCodeScannerViewController.h"
 #import "Scanner.h"
 #import "ScannerMaskView.h"
+#import "MultimediaTool.h"
 
 #define kMaxImageSize CGSizeMake(1000, 1000)
 @interface QRCodeScannerViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -96,7 +97,12 @@
     [photoButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [self.view addSubview:photoButton];
     
-
+    UIButton *flashButton = [[UIButton alloc]initWithFrame:CGRectMake((self.view.bounds.size.width - 40) * 0.5, self.view.bounds.size.height - 30, 40, 30)];
+    [flashButton addTarget:self action:@selector(flashClick:) forControlEvents:UIControlEventTouchUpInside];
+    [flashButton setTitle:@"闪光灯" forState:UIControlStateNormal];
+    [flashButton sizeToFit];
+    [flashButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [self.view addSubview:flashButton];
 }
 
 - (void)initScanBorder{
@@ -139,6 +145,20 @@
     imagePicker.view.backgroundColor = [UIColor whiteColor];
     imagePicker.delegate = self;
     [self showDetailViewController:imagePicker sender:nil];
+}
+
+#pragma mark - 闪光灯
+- (void)flashClick:(UIButton *)btn{
+    
+    NSLog(@"点击了闪光灯");
+    if (btn.isSelected == YES) {
+        [MultimediaTool openLight:btn.isSelected];
+        btn.selected = !btn.selected;
+    }else{
+        btn.selected = YES;
+        [MultimediaTool openLight:YES];
+    }
+
 }
 
 
