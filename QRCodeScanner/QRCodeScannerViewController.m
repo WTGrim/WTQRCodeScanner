@@ -167,16 +167,17 @@
     
     UIImage *image = [self resizeImage:info[UIImagePickerControllerOriginalImage]];
     //图像扫描
+    __weak typeof(self)weakSelf = self;
     [Scanner scanImage:image completed:^(NSArray *results) {
         
         if (results.count > 0) {
-            self.completed(results.firstObject);
-            [self dismissViewControllerAnimated:NO completion:^{
-                [self dismiss];
+            weakSelf.completed(results.firstObject);
+            [weakSelf dismissViewControllerAnimated:NO completion:^{
+                [weakSelf dismiss];
             }];
         }else{
             _tipsLabel.text = @"没有识别到二维码";
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
@@ -186,8 +187,8 @@
     if (image.size.width < kMaxImageSize.width && image.size.height < kMaxImageSize.height) {
         return image;
     }
-    CGFloat ratioW = image.size.width / kMaxImageSize.width;
-    CGFloat ratioH = image.size.height / kMaxImageSize.height;
+    CGFloat ratioW =  kMaxImageSize.width / image.size.width;
+    CGFloat ratioH = kMaxImageSize.height / image.size.height ;
     CGFloat ratio = MIN(ratioW, ratioH);
     CGSize size = CGSizeMake(image.size.width * ratio, image.size.height * ratio);
     

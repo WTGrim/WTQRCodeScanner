@@ -161,7 +161,7 @@
         //返回通过置信系数过滤的特征
         NSArray *features = [detector featuresInImage:ciImage];
         
-        NSMutableArray *array = [NSMutableArray array];
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:features.count];
         for (CIQRCodeFeature *feature in features) {
             
             [array addObject:feature.messageString];
@@ -222,11 +222,11 @@
             if (self.competed) {
                 self.competed(readableObject.stringValue);
             }
-            [MultimediaTool showDetailMessageInSafari:readableObject.stringValue succeed:^(NSString *result) {
-                NSLog(@"成功");
-            } failed:^(NSError *error) {
-                
-            }];
+//            [MultimediaTool showDetailMessageInSafari:readableObject.stringValue succeed:^(NSString *result) {
+//                NSLog(@"成功");
+//            } failed:^(NSError *error) {
+//                
+//            }];
         }
     }
 }
@@ -234,7 +234,7 @@
 #pragma mark - 绘制图形
 - (void)drawShape:(AVMetadataMachineReadableCodeObject *)obj{
     
-    if (!obj.corners.count) return;
+    if (obj.corners.count == 0) return;
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     shapeLayer.lineWidth = 4;
     shapeLayer.strokeColor = [UIColor greenColor].CGColor;   //边线颜色
