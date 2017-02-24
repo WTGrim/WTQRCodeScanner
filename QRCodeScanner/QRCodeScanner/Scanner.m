@@ -210,8 +210,8 @@
         }
         
         if (_currentCount++ < kMaxDetectCount) {
-            //绘制
-            [self drawShape:readableObject];
+            //绘制(为了美观可以不用绘制)
+//            [self drawShape:readableObject];
         }else{
             
             [self endScan];
