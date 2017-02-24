@@ -263,6 +263,4 @@
     return path.CGPath;
 }
 
-
-
 @end
